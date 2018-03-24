@@ -13,6 +13,32 @@ class Vector(object):
     def _normalize(self):
         mag = self.magnitude()
         new_x, new_y = self.x / mag, self.y / mag
+        self.x, self.y = new_x, new_y
+
+    def _direction(self):
+        mag = self.magnitude()
+        new_x, new_y = self.x / mag, self.y / mag
+        unit_direction = Vector((new_x, new_y))
+        return unit_direction
+
+    def classify_direction(self, direction='up'):
+        ''' direction='x' or direction='y' will return 'left','right','up','down' '''
+
+        if direction == 'x':
+            if self.x > 0:
+                return 'right'
+            if self.x < 0:
+                return 'left'
+            if self.x == 0:
+                return None
+
+        if direction =='y':
+            if self.y > 0:
+                return 'down'
+            if self.y < 0:
+                return 'up'
+            if self.y == 0:
+                return None
 
     def _magnitude(self):
         mag = (self.x * self.x + self.y * self.y)^(0.5)

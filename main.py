@@ -35,7 +35,7 @@ def events():
 
 def main():
     display, clock = setup(GAME_WIDTH, GAME_HEIGHT)
-    asteroids = [Asteroid() for iter in range(5)]
+    asteroids = [Asteroid() for iter in range(10)]
 
     while True:
         display.fill(BACKGROUND_COLOR)
@@ -43,6 +43,7 @@ def main():
         
         for asteroid in asteroids:
             asteroid.show(display)
+            asteroid.move()
             
         pygame.display.update()
         clock.tick(FPS)
