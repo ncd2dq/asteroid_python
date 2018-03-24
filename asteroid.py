@@ -78,3 +78,8 @@ class Asteroid(object):
 
         else:
             pygame.draw.ellipse(display, Asteroid.color, [self.location.x, self.location.y, Asteroid.small_r, Asteroid.smaller_r])
+
+    # need at add - asteroids should be able to explode and release 2 smaller versions of themselves
+    # when the asteroids explode, the child asteroids should split based on the more important factor of their movement
+    # for example, if the x-component of their velocity is the largest, they both inherit that x-component but then they
+    # get a mirrored y component (this way they don't just entirely overlap)

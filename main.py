@@ -1,6 +1,7 @@
 import pygame
 from constants import *
 from asteroid import Asteroid
+from ship import SpaceShip
 
 def setup(WIDTH, HEIGHT):
     pygame.init()
@@ -35,7 +36,8 @@ def events():
 
 def main():
     display, clock = setup(GAME_WIDTH, GAME_HEIGHT)
-    asteroids = [Asteroid() for iter in range(10)]
+    asteroids = [Asteroid() for iter in range(5)]
+    spaceship = SpaceShip()
 
     while True:
         display.fill(BACKGROUND_COLOR)
@@ -44,7 +46,9 @@ def main():
         for asteroid in asteroids:
             asteroid.show(display)
             asteroid.move()
-            
+
+        spaceship.show(display)
+
         pygame.display.update()
         clock.tick(FPS)
         
