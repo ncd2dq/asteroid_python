@@ -11,12 +11,12 @@ class Vector(object):
         new_x, new_y = self.x * scalar, self.y * scalar
 
     def _normalize(self):
-        mag = self.magnitude()
+        mag = self._magnitude()
         new_x, new_y = self.x / mag, self.y / mag
         self.x, self.y = new_x, new_y
 
     def _direction(self):
-        mag = self.magnitude()
+        mag = self._magnitude()
         new_x, new_y = self.x / mag, self.y / mag
         unit_direction = Vector((new_x, new_y))
         return unit_direction
@@ -41,8 +41,12 @@ class Vector(object):
                 return None
 
     def _magnitude(self):
-        mag = (self.x * self.x + self.y * self.y)^(0.5)
+        mag = (self.x * self.x + self.y * self.y)**(0.5)
         return mag
 
     def __sub__(self, other):
         new_x, new_y = self.x - other.x, self.y - other.y
+        return Vector((new_x, new_y))
+
+    def __str__(self):
+        return '<' + str(self.x) +',' + ' ' + str(self.y) + '>'

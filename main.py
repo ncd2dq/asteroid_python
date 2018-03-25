@@ -2,6 +2,7 @@ import pygame
 from constants import *
 from asteroid import Asteroid
 from ship import SpaceShip
+from vectors import Vector
 
 def setup(WIDTH, HEIGHT):
     pygame.init()
@@ -10,7 +11,9 @@ def setup(WIDTH, HEIGHT):
 
     return display, clock
 
-def events():
+def events(spaceship):
+
+    accelerate_vector = spaceship.ship_direction._direction()
 
     global game_exit
 
@@ -31,23 +34,31 @@ def events():
             if event.key == pygame.K_LEFT:
                 pass
         if event.type == pygame.KEYDOWN:
-            pass
-
+            if event.key == pygame.K_UP:
+                spaceship.boost(accelerate_vector)
+            if event.key == pygame.K_DOWN:
+                pass
+            if event.key == pygame.K_RIGHT:
+                pass
+            if event.key == pygame.K_LEFT:
+                pass
 
 def main():
     display, clock = setup(GAME_WIDTH, GAME_HEIGHT)
     asteroids = [Asteroid() for iter in range(5)]
     spaceship = SpaceShip()
+    spaceship.loop_position()
 
     while True:
         display.fill(BACKGROUND_COLOR)
-        events()
+        events(spaceship)
         
         for asteroid in asteroids:
             asteroid.show(display)
             asteroid.move()
 
         spaceship.show(display)
+        spaceship.update()
 
         pygame.display.update()
         clock.tick(FPS)

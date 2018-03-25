@@ -44,6 +44,7 @@ class Asteroid(object):
             self.radius = Asteroid.small_r
 
     def choose_random_direction(self):
+        ''' Creates a random direction for the asteroid to move in'''
         x_dir = random.random() * 2 - 1
         y_dir = random.random() * 2 - 1
         return Vector((x_dir, y_dir))
@@ -51,6 +52,11 @@ class Asteroid(object):
     # looping function
     # x + r / y + r is the center of the circle
     def loop_position(self):
+        '''
+        Ensures that the asteroid is heading towards the correct wall, then
+        allows for it to travel a bit off screen, before appearing offscreen
+        on the other side of the map
+        '''
 
         if self.location.x > GAME_WIDTH and self.x_class != 'left': 
             self.location.x = 0 - self.radius * 2
