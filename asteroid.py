@@ -25,7 +25,8 @@ BACKGROUND_COLOR = (255, 255, 255)
 '''
 
 class Asteroid(object):
-    small_r = ASTEROID_SMALL_R
+    small_r = ASTEROID_SMA
+    LL_R
     medium_r = ASTEROID_MEDIUM_R
     large_r = ASTEROID_LARGE_R
     color = ASTEROID_COLOR
