@@ -9,6 +9,7 @@ class Vector(object):
 
     def _mult(self, scalar):
         new_x, new_y = self.x * scalar, self.y * scalar
+        return Vector((new_x, new_y))
 
     def _normalize(self):
         mag = self._magnitude()

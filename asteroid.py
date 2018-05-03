@@ -25,14 +25,16 @@ BACKGROUND_COLOR = (255, 255, 255)
 '''
 
 class Asteroid(object):
-    small_r = ASTEROID_SMA
-    LL_R
+    small_r = ASTEROID_SMALL_R
     medium_r = ASTEROID_MEDIUM_R
     large_r = ASTEROID_LARGE_R
     color = ASTEROID_COLOR
 
-    def __init__(self, size=3):
-        self.location = Vector( (random.choice(range(GAME_WIDTH)), random.choice(range(GAME_HEIGHT))) )
+    def __init__(self, allowable_positions, size=3):
+        if allowable_positions == None:
+            self.location = Vector( (random.choice(range(GAME_WIDTH)), random.choice(range(GAME_HEIGHT))) )
+        else:
+            self.location = Vector( (random.choice(allowable_positions[0]), random.choice(allowable_positions[1])) )
         self.size = size
         self.direction = self.choose_random_direction()
         self.x_class = self.direction.classify_direction(direction = 'x')
@@ -78,13 +80,13 @@ class Asteroid(object):
 
     def show(self, display):
         if self.size == 3:
-            pygame.draw.ellipse(display, Asteroid.color, [self.location.x, self.location.y, Asteroid.large_r, Asteroid.large_r], 2)
+            pygame.draw.ellipse(display, Asteroid.color, [self.location.x, self.location.y, Asteroid.large_r * 2, Asteroid.large_r * 2], 2)
 
         elif self.size == 2:
-            pygame.draw.ellipse(display, Asteroid.color, [self.location.x, self.location.y, Asteroid.medium_r, Asteroid.medium_r])
+            pygame.draw.ellipse(display, Asteroid.color, [self.location.x, self.location.y, Asteroid.medium_r * 2, Asteroid.medium_r * 2], 2)
 
         else:
-            pygame.draw.ellipse(display, Asteroid.color, [self.location.x, self.location.y, Asteroid.small_r, Asteroid.smaller_r])
+            pygame.draw.ellipse(display, Asteroid.color, [self.location.x, self.location.y, Asteroid.small_r * 2, Asteroid.smaller_r * 2], 2)
 
     # need at add - asteroids should be able to explode and release 2 smaller versions of themselves
     # when the asteroids explode, the child asteroids should split based on the more important factor of their movement

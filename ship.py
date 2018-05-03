@@ -2,8 +2,6 @@ from constants import *
 from vectors import Vector 
 import pygame
 import math
-import time
-
 '''
 vectors 
 +/-   _mult  _normalize  _direction  _magnitude  
@@ -47,6 +45,7 @@ class SpaceShip(object):
         self.acceleration = Vector((0.0, 0.0))
         self.point_list = []
         self.calculate_vertices()
+        self.crashed = False
 
     def calculate_vertices(self):
         '''
@@ -89,7 +88,6 @@ class SpaceShip(object):
             self.location = Vector((self.location.x, loop_offset * -1))
             loop = True
         if loop:
-            print('loop')
             self.calculate_vertices()
             #time.sleep(3)
 
@@ -155,13 +153,27 @@ class SpaceShip(object):
         self.location = Vector((converted_back[0], converted_back[1]))
         '''
 
-    def show(self, display):
-        pygame.draw.polygon(display, SPACESHIP_COLOR, self.point_list, 2)
+    def ship_collision(self, asteroid_list):
+        for asteroid in asteroid_list:
+            # tip, BL, back, BR
+            asteroid_center = (asteroid.location.x + asteroid.radius, asteroid.location.y + asteroid.radius)
+            for coordinate in self.point_list:
+                # circle equation (x - h)**2 + (y - k)**2 = r**2
+                # center is at pooint (h,k)
+                left_side = (coordinate[0] - asteroid_center[0]) ** 2 + (coordinate[1] - asteroid_center[1]) ** 2
+                right_side = asteroid.radius ** 2
+                if left_side <= right_side:
+                    self.crashed = True
 
-    def run(self, display, theta, ship_loop_offset):
+    def show(self, display):
+        if not self.crashed:
+            pygame.draw.polygon(display, SPACESHIP_COLOR, self.point_list, 2)
+
+    def run(self, display, theta, ship_loop_offset, asteroid_list):
         # ignoring boost / update / loop_position
         self.calculate_vertices()
         self.rotate(theta)
         self.update()
+        self.ship_collision(asteroid_list)
         self.loop_position(ship_loop_offset)
         self.show(display)
