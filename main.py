@@ -89,7 +89,6 @@ def main():
             bullet.run(display, asteroids)
             if bullet.crashed:
                 bullets.remove(bullet)
-        print(len(bullets))
 
         spaceship.run(display, angle, SHIP_LOOP_OFFSET, asteroids)
 

@@ -11,6 +11,7 @@ class Bullet(object):
 
     def update(self):
         velocity = self.direction._mult(BULLET_SPEED)
+        self.fuel -= velocity._magnitude()
         self.location += velocity
 
     def show(self, display):
@@ -18,7 +19,6 @@ class Bullet(object):
             pygame.draw.ellipse(display, BULLET_COLOR, [self.location.x, self.location.y, BULLET_RADIUS * 2, BULLET_RADIUS * 2])
 
     def fuel_depletion(self):
-        self.fuel -= 1
         if self.fuel <= 0:
             self.crashed = True
 
