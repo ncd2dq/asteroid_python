@@ -44,6 +44,7 @@ class Bullet(object):
             right_side = asteroid.radius ** 2
             if left_side <= right_side:
                 self.crashed = True
+                asteroid.destroyed = True
 
     def run(self, display, asteroid_list):
         self.update()

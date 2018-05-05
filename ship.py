@@ -157,7 +157,16 @@ class SpaceShip(object):
         for asteroid in asteroid_list:
             # tip, BL, back, BR
             asteroid_center = (asteroid.location.x + asteroid.radius, asteroid.location.y + asteroid.radius)
-            for coordinate in self.point_list:
+
+            # add more points to collision detection
+            more_points = self.point_list[:]
+
+            # find out where the center point is by finding half the difference between head and tail and adding that to tail
+            x_delta, y_delta = (self.point_list[0][0] - self.point_list[2][0])/ 2, (self.point_list[0][1] - self.point_list[2][1]) / 2
+            center_x, center_y = self.point_list[2][0] + x_delta, self.point_list[2][1] + y_delta
+            more_points.append((center_x, center_y))
+
+            for coordinate in more_points:
                 # circle equation (x - h)**2 + (y - k)**2 = r**2
                 # center is at pooint (h,k)
                 left_side = (coordinate[0] - asteroid_center[0]) ** 2 + (coordinate[1] - asteroid_center[1]) ** 2
