@@ -100,6 +100,8 @@ def main():
     bullets = []
     global angle 
     global angle_change
+    global ADDITIONAL_ASTEROIDS
+    global ASTEROID_BREAK_SPEED_FACTOR
     angle_change = 0
     angle = 0
     baby_asteroids = []
